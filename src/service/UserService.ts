@@ -1,61 +1,71 @@
-import axios from "axios";
-import { API_BASE_URL } from "@/config/config";
-import { text } from "stream/consumers";
+import axiosInstance from "@/config/axiosInstance";
+import {UserDto} from "@/model/user/UserDto";
+import {OrderDto} from "@/model/order/OrderDto";
 
-export const getProfile = async () => {
+export const signup = async (signUpData: { firstName: string; lastName: string; email: string; password: string }) => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/test/profile`, {
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + localStorage.getItem("token")
-            }
-        });
-            return response.data;
+        const response = await axiosInstance.post('/auth/signup', signUpData);
+        return response.data;
     } catch (error) {
-        console.log("Error fetching user profile");
+        console.error('Sign up error:', error);
         throw error;
     }
-}
+};
 
-export const signup = async (state: { username: string; email: string; password: string }) => {
+export const signin = async (signInData: { email: string; password: string }) => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/auth/signup`, state, {
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-            return response.data;
+        const response = await axiosInstance.post('/auth/signin', signInData);
+        return response.data;
     } catch (error) {
-        console.error("Error signing up user", error);
+        console.error('Sign in error:', error);
         throw error;
     }
-}
+};
 
-export const signin = async (state: { username: string; password: string }) => {
+export const getUserFullName = async (): Promise<string> => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/auth/signin`, state, {
+        const token = localStorage.getItem("token");
+        const response = await axiosInstance.get('/user', {
             headers: {
-                "Content-Type": "application/json"
-            }
-        });
-            return response.data;
-    } catch (error) {
-        console.error("Error signing in user", error);
-        throw error;
-    }
-}
-
-export const getUser = async () => {
-    try {
-        const response = await axios.get(`${API_BASE_URL}/test/user`, {
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + localStorage.getItem("token")
+                Authorization: `Bearer ${token}`,
             },
         });
-            return response.data;
+        return response.data;
     } catch (error) {
-        console.error('Error fetching content', error);
+        console.error('Error fetching user full name:', error);
         throw error;
     }
 }
+
+export const getUserDetails = async (): Promise<UserDto> => {
+    try {
+        const token = localStorage.getItem("token");
+        const response = await axiosInstance.get('/user/details', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching user details:', error);
+        throw error;
+    }
+}
+
+export const getUserOrderList = async (): Promise<OrderDto[]> => {
+    try {
+        const token = localStorage.getItem("token");
+        const response = await axiosInstance.get('/user/orders', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching user orders", error);
+        throw error;
+    }
+}
+
+

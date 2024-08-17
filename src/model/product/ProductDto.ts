@@ -1,6 +1,7 @@
-import {Category} from "@/model/Category";
+import {Category} from "@/model/category/Category";
 
 export interface ProductDto {
+    id: number;
     name: string;
     imageUrl: Blob;
     price: number;

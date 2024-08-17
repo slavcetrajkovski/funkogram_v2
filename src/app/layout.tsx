@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html>
       <Suspense>
-        <body className={inter.className}>
+        <body className={`${inter.className} bg-yellow-700`}>
           <TopBar />
           <Navbar />
           {children}

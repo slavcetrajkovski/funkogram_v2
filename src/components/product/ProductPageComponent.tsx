@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { getProductDetails } from "@/service/ProductService";
 import ProductCard from "@/components/product/ProductCard";
 import { usePathname } from "next/navigation";
-import { ProductDto } from "@/model/ProductDto";
+import { ProductDto } from "@/model/product/ProductDto";
 
 export default function ProductPageComponent() {
   const pathname = usePathname();

@@ -1,4 +1,4 @@
-import {ProductDto} from "@/model/ProductDto";
+import {ProductDto} from "@/model/product/ProductDto";
 
 export interface ProductList {
     products: ProductDto[];

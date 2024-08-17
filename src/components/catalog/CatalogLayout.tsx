@@ -1,10 +1,10 @@
 "use client";
 
-import {Suspense, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useRouter, usePathname, useSearchParams} from "next/navigation";
 import {getAllProducts} from "@/service/ProductService";
 import ProductCard from "@/components/product/ProductCard";
-import {ProductDto} from "@/model/ProductDto";
+import {ProductDto} from "@/model/product/ProductDto";
 import {Page} from "@/model/Page";
 import Pagination from "@/components/shared/Pagination";
 import Spinner from "@/components/shared/Spinner";
@@ -129,12 +129,12 @@ export default function CatalogLayout() {
             />
             <div className="flex justify-center mt-6">
                 {loading ? (
-                    <Spinner/>
+                    <Spinner position={`mt-10`}/>
                 ) : (
                     <div
                         className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-4 gap-6">
                         {products.map(product => (
-                            <ProductCard key={product.name} product={product}/>
+                            <ProductCard key={product.id} product={product}/>
                         ))}
                     </div>
                 )}
