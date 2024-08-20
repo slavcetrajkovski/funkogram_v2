@@ -4,7 +4,6 @@ export default function LoggedInMenu({ firstName }: { firstName: string }) {
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-        localStorage.removeItem("firstName");
         
         window.location.reload();
     };

@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { signin } from "@/service/UserService";
 import Image from "next/image";
@@ -106,6 +105,9 @@ export default function SignInLayout() {
         >
           {loading ? <Spinner /> : "Логирај се"}
         </button>
+        <p className="text-sm text-gray-500">
+          Немате кориснички профил? <a href="/signup" className="font-medium text-funkogram_red hover:underline">Креирај профил</a>
+        </p>
       </form>
     </div>
     </div>

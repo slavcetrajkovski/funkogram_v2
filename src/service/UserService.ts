@@ -1,6 +1,7 @@
 import axiosInstance from "@/config/axiosInstance";
 import {UserDto} from "@/model/user/UserDto";
 import {OrderDto} from "@/model/order/OrderDto";
+import {Page} from "@/model/Page";
 
 export const signup = async (signUpData: { firstName: string; lastName: string; email: string; password: string }) => {
     try {
@@ -52,15 +53,15 @@ export const getUserDetails = async (): Promise<UserDto> => {
     }
 }
 
-export const getUserOrderList = async (): Promise<OrderDto[]> => {
+export const getUserOrderList = async (page: number, size: number): Promise<Page<OrderDto>> => {
     try {
         const token = localStorage.getItem("token");
-        const response = await axiosInstance.get('/user/orders', {
+        const response = await axiosInstance.get(`/user/orders`, {
             headers: {
                 Authorization: `Bearer ${token}`
             },
+            params: { page, size }
         });
-
         return response.data;
     } catch (error) {
         console.error("Error fetching user orders", error);

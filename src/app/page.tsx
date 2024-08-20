@@ -1,8 +1,6 @@
-// pages/index.js
 import Image from 'next/image';
 import React from "react";
 import CarouselMain from "@/components/shared/CarouselMain";
-import Link from "next/link";
 
 const Home = () => {
     const imageUrls = [

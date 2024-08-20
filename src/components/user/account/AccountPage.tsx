@@ -10,7 +10,7 @@ export default function AccountPage() {
 
     return (
         <>
-            <div className="container mx-auto mt-10 p-4 flex">
+            <div className="container mx-auto mt-8 p-4 flex">
                 <div className="w-1/4 mr-4">
                     <AccountSidebar setView={setView} />
                 </div>

@@ -39,8 +39,15 @@ export default function SignUpLayout() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (state.password !== state.confirmPassword) {
       setError("Лозинките не се совпаѓаат!");
+      return;
+    }
+
+    if (!emailRegex.test(state.email)) {
+      setError("Неважечка е-меил адреса!");
       return;
     }
 
@@ -48,7 +55,7 @@ export default function SignUpLayout() {
     setTimeout(async () => {
       try {
         setError(null);
-        const response = await signup({
+       await signup({
           firstName: state.firstName,
           lastName: state.lastName,
           email: state.email,
@@ -183,6 +190,9 @@ export default function SignUpLayout() {
         >
           {loading ? <Spinner /> : "Креирај профил"}
         </button>
+        <p className="text-sm text-gray-500">
+          Веќе имате кориснички профил? <a href="/signin" className="font-medium text-funkogram_red hover:underline">Логирај се</a>
+        </p>
       </form>
     </div>
     </div>
