@@ -48,12 +48,12 @@ export default function ProductCard({ product }: { product: ProductDto | undefin
             <div className="flex items-center justify-between mt-4">
                 <p className="text-lg font-semibold text-gray-900">{product?.price} ден</p>
                 <div className="flex space-x-4">
-                    <button onClick={handleAddToCart} className="text-blue-400 hover:text-blue-700 text-xl">
+                    <button onClick={handleAddToCart} className="text-blue-400 hover:text-blue-700 text-3xl">
                         <FontAwesomeIcon icon={faCartPlus as IconProp} className="mr-2" />
                     </button>
-                    <button className="text-red-500 hover:text-red-700 text-xl">
-                        <FontAwesomeIcon icon={faHeart as IconProp} className="mr-2" />
-                    </button>
+                    {/*<button className="text-red-500 hover:text-red-700 text-xl">*/}
+                    {/*    <FontAwesomeIcon icon={faHeart as IconProp} className="mr-2" />*/}
+                    {/*</button>*/}
                 </div>
             </div>
 

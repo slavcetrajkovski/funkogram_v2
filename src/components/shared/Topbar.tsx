@@ -118,13 +118,13 @@ export default function TopBar() {
               className="h-6"
             />
           </a>
-          <button onClick={toggleMenu} type="button" className="lg:hidden">
-            {!isOpen ? (
-              <FontAwesomeIcon icon={faBars as IconProp} className="h-6" />
-            ) : (
-              <FontAwesomeIcon icon={faTimes as IconProp} className="h-6" />
-            )}
-          </button>
+          {/*<button onClick={toggleMenu} type="button" className="lg:hidden">*/}
+          {/*  {!isOpen ? (*/}
+          {/*    <FontAwesomeIcon icon={faBars as IconProp} className="h-6" />*/}
+          {/*  ) : (*/}
+          {/*    <FontAwesomeIcon icon={faTimes as IconProp} className="h-6" />*/}
+          {/*  )}*/}
+          {/*</button>*/}
         </div>
       </div>
 

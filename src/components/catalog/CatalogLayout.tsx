@@ -27,14 +27,15 @@ export default function CatalogLayout() {
     const [categoryFilter, setCategoryFilter] = useState<string>("");
     const [categories, setCategories] = useState<string[]>([]);
     const [sortFilter, setSortFilter] = useState<string>("");
-    const [productStatus, setProductStatus] = useState<string>("");
+    const [productStatusFilter, setProductStatusFilter] = useState<string>("");
+    const [productStatus, setProductStatus] = useState<string[]>([]);
 
     useEffect(() => {
         const fetchProducts = async () => {
             setLoading(true);
             try {
                 const response: Page<ProductDto> = await getAllProducts(currentPage,
-                    productsPerPage, searchFilter, categoryFilter, sortFilter, productStatus);
+                    productsPerPage, searchFilter, categoryFilter, sortFilter, productStatusFilter);
                 setProducts(response.content);
                 setTotalProducts(response.totalElements);
                 setTotalPages(response.totalPages);
@@ -46,13 +47,14 @@ export default function CatalogLayout() {
         };
 
         fetchProducts();
-    }, [currentPage, productsPerPage, searchFilter, categoryFilter, sortFilter, productStatus]);
+    }, [currentPage, productsPerPage, searchFilter, categoryFilter, sortFilter, productStatusFilter]);
 
     useEffect(() => {
         const fetchCategories = async () => {
             try {
                 const response = await getAllCategories();
                 setCategories(response);
+                setProductStatus(  ["NEW_ARRIVAL", "PREORDER", "IN_STOCK"])
             } catch (error) {
                 setError("Failed to fetch categories");
             }
@@ -65,7 +67,7 @@ export default function CatalogLayout() {
         const pageParam = parseInt(searchParams.get('page') as string) || 0;
         setCurrentPage(pageParam);
         setSearchFilter(searchParams.get("searchFilter") || "");
-        setProductStatus(searchParams.get("productStatus") || "");
+        // setProductStatus(searchParams.get("productStatusFilter") || "");
     }, [searchParams]);
 
     const handlePageChange = (page: number) => {
@@ -97,12 +99,19 @@ export default function CatalogLayout() {
         router.push(`${pathname}?${newParams.toString()}`);
     }
 
+    const handleProductStatusChange = (value: string) => {
+        setProductStatusFilter(value);
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set('productStatus', value.toString());
+        router.push(`${pathname}?${newParams.toString()}`);
+    }
+
     const clearFilters = () => {
         setCategoryFilter("");
         setSearchFilter("");
         setSortFilter("");
         setCurrentPage(0);
-        setProductStatus("");
+        setProductStatusFilter("");
         setProductsPerPage(40);
 
         const newParams = new URLSearchParams(searchParams);
@@ -121,11 +130,14 @@ export default function CatalogLayout() {
                 productsPerPage={productsPerPage}
                 categoryFilter={categoryFilter}
                 sortFilter={sortFilter}
+                productStatusFilter={productStatusFilter}
                 categories={categories}
+                productStatus={productStatus}
                 clearFilters={clearFilters}
                 handleProductsPerPageChange={handleProductsPerPageChange}
                 handleCategoryChange={handleCategoryChange}
                 handleSortChange={handleSortChange}
+                handleProductStatusChange={handleProductStatusChange}
             />
             <div className="flex justify-center mt-6">
                 {loading ? (
