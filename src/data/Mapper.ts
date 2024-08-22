@@ -7,7 +7,7 @@ export const getStatusText = (status: string | undefined) => {
         case "IN_STOCK":
             return "ДОСТАПНО";
         case "PREORDER":
-            return "НАСКОРО";
+            return "ПРЕДНАРАЧКА";
         case "AVAILABLE_RIGHT_AWAY":
             return "ВЕДНАШ ДОСТАПНО"
         default:
@@ -18,15 +18,15 @@ export const getStatusText = (status: string | undefined) => {
 export const getStatusColor = (status: string | undefined) => {
     switch (status) {
         case "NEW_ARRIVAL":
-            return "bg-blue-500";
+            return "bg-teal-500";
         case "IN_STOCK":
-            return "bg-green-500";
+            return "bg-indigo-500";
         case "PREORDER":
             return "bg-purple-500";
         case "AVAILABLE_RIGHT_AWAY":
             return "bg-green-500";
         default:
-            return "";
+            return "bg-gray-500";
     }
 };
 

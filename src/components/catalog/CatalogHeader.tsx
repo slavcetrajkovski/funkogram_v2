@@ -53,7 +53,7 @@ export default function CatalogHeader({
                 <span className="text-funkogram_red">{totalProducts}</span> Funko POP! фигури
             </h1>
             <div className="hidden xl:flex xl:ml-auto xl:items-center xl:space-x-6 xl:text-black">
-                <ClearFilter onClear={clearFilters} />
+                <ClearFilter onClear={clearFilters}/>
                 <DropdownPageSize
                     options={[40, 52, 64]}
                     value={productsPerPage}

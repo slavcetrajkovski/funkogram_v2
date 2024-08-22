@@ -54,8 +54,8 @@ export default function SignInLayout() {
 
   return (
     <div className="min-h-screen overflow-hidden bg-yellow-700 mt-10">
-      <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg text-black">
-      <div className="flex justify-center mb-6">
+      <div className="max-w-sm sm:max-w-md mx-auto p-4 sm:p-6 rounded-lg shadow-lg text-black bg-white">
+      <div className="flex justify-center mb-4 sm:mb-4">
         <Image src="/funkogram-logo.png" alt="Logo" width={150} height={150} />
       </div>
       {error && <p className="text-red-500 text-center mb-4">{error}</p>}

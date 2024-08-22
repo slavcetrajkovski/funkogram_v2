@@ -16,6 +16,7 @@ import LoggedInMenu from "../user/LoggedInMenu";
 import LoggedOutMenu from "../user/LoggedOutMenu";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import {getUserFullName} from "@/service/UserService";
+import ToastMessage from "@/components/shared/ToastMessage";
 
 export default function TopBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,18 +25,31 @@ export default function TopBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastError, setToastError] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
 
   useEffect(() => {
     const fetchUserFullName = async () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        setIsLoggedIn(true);
-        const fullName = await getUserFullName();
-        setFirstName(fullName);
+      try {
+        const token = localStorage.getItem("token");
+        if (token) {
+          setIsLoggedIn(true);
+          const fullName = await getUserFullName();
+          setFirstName(fullName);
+        }
+      } catch (error) {
+        localStorage.removeItem("token");
+        setToastMessage("Сесијата е истечена. Ве молиме најавете се повторно.");
+        setToastError(true);
+        setShowToast(true);
+        setTimeout(() => {
+          window.location.href = "/signin";
+        }, 2000);
       }
-    }
+    };
 
     fetchUserFullName();
   }, []);
@@ -131,6 +145,15 @@ export default function TopBar() {
       {isSearchOpen && <MobileSearchBar />}
 
       {isOpen && <Navbar isOpen={isOpen} />}
+
+      {showToast && (
+          <ToastMessage
+              message={toastMessage}
+              duration={2000}
+              onClose={() => setShowToast(false)}
+              error={toastError}
+          />
+      )}
     </div>
   );
 }
