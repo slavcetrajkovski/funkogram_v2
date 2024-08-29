@@ -37,7 +37,7 @@ export default function ProductCard({ product }: { product: ProductDto | undefin
                 />
                 <span
                     className={`text-s text-white rounded-b-full font-semibold ml-2 px-4 py-4 rounded absolute -top-6 right-2 ${getStatusColor(
-                        product?.productStatus
+                        statusToDisplay
                     )}`}
                 >
           {getStatusText(statusToDisplay)}
