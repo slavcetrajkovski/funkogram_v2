@@ -10,6 +10,8 @@ export const getStatusText = (status: string | undefined) => {
             return "ПРЕДНАРАЧКА";
         case "AVAILABLE_RIGHT_AWAY":
             return "ВЕДНАШ ДОСТАПНО"
+        case "SOLD_OUT":
+            return "SOLD OUT";
         default:
             return status;
     }
@@ -25,6 +27,8 @@ export const getStatusColor = (status: string | undefined) => {
             return "bg-purple-500";
         case "AVAILABLE_RIGHT_AWAY":
             return "bg-green-500";
+        case "SOLD_OUT":
+            return "bg-red-500";
         default:
             return "bg-gray-500";
     }

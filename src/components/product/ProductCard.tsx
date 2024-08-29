@@ -25,6 +25,8 @@ export default function ProductCard({ product }: { product: ProductDto | undefin
         }
     };
 
+    const statusToDisplay = product?.deleted ? "SOLD_OUT" : product?.productStatus;
+
     return (
         <div className="relative bg-white cursor-pointer hover:shadow-2xl rounded-lg p-6 mx-2 my-4 h-90 w-80">
             <div className="flex justify-center items-center relative">
@@ -38,7 +40,7 @@ export default function ProductCard({ product }: { product: ProductDto | undefin
                         product?.productStatus
                     )}`}
                 >
-          {getStatusText(product?.productStatus)}
+          {getStatusText(statusToDisplay)}
         </span>
             </div>
             <h1 className="mt-4 text-xl font-bold text-gray-800">{product?.name}</h1>
