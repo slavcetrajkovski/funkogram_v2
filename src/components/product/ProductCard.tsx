@@ -44,7 +44,7 @@ export default function ProductCard({ product }: { product: ProductDto | undefin
         </span>
             </div>
             <h1 className="mt-4 text-xl font-bold text-gray-800">{product?.name}</h1>
-            {product?.productStatus !== "PREORDER" && (
+            {statusToDisplay !== "PREORDER" && statusToDisplay !== "SOLD_OUT" && (
                 <p className="mt-2 text-gray-500">Залиха: {product?.stock}</p>
             )}
             <div className="flex items-center justify-between mt-4">
