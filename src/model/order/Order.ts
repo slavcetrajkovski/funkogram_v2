@@ -6,6 +6,7 @@ export interface Order {
     city: string;
     phoneNumber: string;
     instagramUsername: string;
+    description: string;
     orderStatus: string;
     totalPrice: number;
 }

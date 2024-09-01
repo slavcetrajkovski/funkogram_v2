@@ -17,6 +17,7 @@ export default function OrderConfirmationLayout() {
     const [city, setCity] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [instagramProfile, setInstagramProfile] = useState("");
+    const [description, setDescription] = useState("");
     const [error, setError] = useState<string | null>(null);
     const [toastMessage, setToastMessage] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
@@ -51,6 +52,10 @@ export default function OrderConfirmationLayout() {
 
     const totalPrice = cartItems.reduce((total, item) => total + item.product.price * item.quantity, 0);
 
+    const hasShirtInCart = cartItems.some(
+        (item) => item.product.productType === "SHIRT"
+    );
+
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError(null);
@@ -68,7 +73,7 @@ export default function OrderConfirmationLayout() {
 
         try {
             setLoading(true);
-            await createOrder(deliveryAddress, city, phoneNumber, instagramProfile);
+            await createOrder(deliveryAddress, city, phoneNumber, instagramProfile, description);
             setTimeout(() => {
                 setToastMessage("Вашата нарачка е успешно примена! Проверете го вашиот е-меил!");
                 setLoading(false);
@@ -174,6 +179,23 @@ export default function OrderConfirmationLayout() {
                                 className="bg-gray-100 text-black p-2 rounded-lg"
                             />
                         </div>
+                        {hasShirtInCart && (
+                            <div className="flex flex-col">
+                                <label className="text-black font-semibold">Величина на маица</label>
+                                <select
+                                    value={description}
+                                    onChange={(e) => setDescription(e.target.value)}
+                                    className="bg-gray-100 text-black p-2 rounded-lg"
+                                >
+                                    <option value="" disabled>Одбери</option>
+                                    <option value="S">S</option>
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
+                                </select>
+                            </div>
+                        )}
                         <button
                             type="submit"
                             className={`bg-funkogram_red text-white py-2 font-bold rounded-lg mt-4 hover:bg-red-700
