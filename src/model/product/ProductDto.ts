@@ -7,6 +7,7 @@ export interface ProductDto {
     price: number;
     stock: number;
     productStatus: string;
+    productType: string;
     deleted: boolean;
     categories: Category[];
 }
