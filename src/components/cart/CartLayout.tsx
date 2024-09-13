@@ -22,7 +22,8 @@ export default function CartLayout() {
 
     const increaseQuantity = async (productId: number) => {
         const updatedCartItems = cartItems.map(item =>
-            item.product.id === productId ? {...item, quantity: item.quantity + 1} : item
+            item.product.id === productId && item.quantity < item.product.stock ?
+                {...item, quantity: item.quantity + 1} : item
         );
         setCartItems(updatedCartItems);
         await updateCartItemQuantity(productId, updatedCartItems.find(item => item.product.id === productId)!.quantity);
