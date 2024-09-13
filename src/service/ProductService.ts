@@ -17,10 +17,11 @@ export const getAllProducts = async (page: number,
                                      searchFilter: string,
                                      categoryFilter: string,
                                      sortFilter: string,
-                                     productStatus: string): Promise<Page<ProductDto>> => {
+                                     productStatus: string,
+                                     productTypeFilter: string): Promise<Page<ProductDto>> => {
     try {
         const response = await axiosInstance.get<Page<ProductDto>>('/product/products', {
-            params: { page, size, searchFilter, categoryFilter, sortFilter, productStatus },
+            params: { page, size, searchFilter, categoryFilter, sortFilter, productStatus, productTypeFilter },
         });
         return response.data;
     } catch (error) {
@@ -28,3 +29,15 @@ export const getAllProducts = async (page: number,
         throw error;
     }
 };
+
+export const getProductsForCarousel = async (productStatus: string) => {
+    try {
+        const response = await axiosInstance.get('product/products/carousel', {
+            params: { productStatus }
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching products", error);
+        throw error;
+    }
+}
