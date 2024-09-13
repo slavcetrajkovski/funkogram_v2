@@ -26,7 +26,7 @@ export default function RootLayout({
         <body className={`${inter.className} bg-yellow-700`}>
         <Suspense>
             <TopBar/>
-            {/*<Navbar/>*/}
+            <Navbar/>
             {children}
         </Suspense>
         </body>

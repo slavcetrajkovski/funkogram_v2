@@ -24,18 +24,19 @@ export default function CatalogLayout() {
     const [error, setError] = useState<string | null>(null);
     const [productsPerPage, setProductsPerPage] = useState<number>(parseInt(searchParams.get('pageSize') as string) || 40);
     const [searchFilter, setSearchFilter] = useState(searchParams.get('searchFilter') || "");
-    const [categoryFilter, setCategoryFilter] = useState<string>("");
+    const [categoryFilter, setCategoryFilter] = useState(searchParams.get('categoryFilter') || "");
     const [categories, setCategories] = useState<string[]>([]);
     const [sortFilter, setSortFilter] = useState<string>("");
-    const [productStatusFilter, setProductStatusFilter] = useState<string>("");
+    const [productStatusFilter, setProductStatusFilter] = useState(searchParams.get('productStatusFilter') || "");
     const [productStatus, setProductStatus] = useState<string[]>([]);
+    const [productTypeFilter, setProductTypeFilter] = useState(searchParams.get('productTypeFilter') || "");
 
     useEffect(() => {
         const fetchProducts = async () => {
             setLoading(true);
             try {
                 const response: Page<ProductDto> = await getAllProducts(currentPage,
-                    productsPerPage, searchFilter, categoryFilter, sortFilter, productStatusFilter);
+                    productsPerPage, searchFilter, categoryFilter, sortFilter, productStatusFilter, productTypeFilter);
                 setProducts(response.content);
                 setTotalProducts(response.totalElements);
                 setTotalPages(response.totalPages);
@@ -47,7 +48,8 @@ export default function CatalogLayout() {
         };
 
         fetchProducts();
-    }, [currentPage, productsPerPage, searchFilter, categoryFilter, sortFilter, productStatusFilter]);
+    }, [currentPage, productsPerPage, searchFilter, categoryFilter, sortFilter,
+        productStatusFilter, productTypeFilter]);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -67,7 +69,9 @@ export default function CatalogLayout() {
         const pageParam = parseInt(searchParams.get('page') as string) || 0;
         setCurrentPage(pageParam);
         setSearchFilter(searchParams.get("searchFilter") || "");
-        // setProductStatus(searchParams.get("productStatusFilter") || "");
+        setCategoryFilter(searchParams.get("categoryFilter") || "");
+        setProductStatusFilter(searchParams.get("productStatusFilter") || "");
+        setProductTypeFilter(searchParams.get("productTypeFilter") || "");
     }, [searchParams]);
 
     const handlePageChange = (page: number) => {
@@ -102,7 +106,7 @@ export default function CatalogLayout() {
     const handleProductStatusChange = (value: string) => {
         setProductStatusFilter(value);
         const newParams = new URLSearchParams(searchParams);
-        newParams.set('productStatus', value.toString());
+        newParams.set('productStatusFilter', value.toString());
         router.push(`${pathname}?${newParams.toString()}`);
     }
 
@@ -112,6 +116,7 @@ export default function CatalogLayout() {
         setSortFilter("");
         setCurrentPage(0);
         setProductStatusFilter("");
+        setProductTypeFilter("");
         setProductsPerPage(40);
 
         const newParams = new URLSearchParams(searchParams);
@@ -120,7 +125,8 @@ export default function CatalogLayout() {
         newParams.delete('sortFilter');
         newParams.delete('page');
         newParams.delete('pageSize')
-        newParams.delete('productStatus');
+        newParams.delete('productStatusFilter');
+        newParams.delete('productTypeFilter')
         router.push(`${pathname}?${newParams.toString()}`);
     };
     return (
