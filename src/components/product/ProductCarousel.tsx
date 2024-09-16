@@ -47,7 +47,7 @@ export default function ProductCarousel({ products, title }: ProductCarouselProp
                 swipeable
                 draggable
                 responsive={responsive}
-                ssr={false} // Disable SSR
+                ssr={false}
                 infinite
                 keyBoardControl
                 customTransition="transform 0.5s ease-in-out"
