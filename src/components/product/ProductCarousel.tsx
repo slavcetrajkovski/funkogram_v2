@@ -43,10 +43,9 @@ export default function ProductCarousel({ products, title }: ProductCarouselProp
                 ssr
                 infinite
                 keyBoardControl
-                customTransition="transform 0.5s ease-in-out" // Updated for smoother transition
-                transitionDuration={500} // Longer duration for smoother effect
+                customTransition="transform 0.5s ease-in-out"
+                transitionDuration={500}
                 containerClass="carousel-container"
-                removeArrowOnDeviceType={["mobile"]}
                 deviceType={getDeviceType()}
                 itemClass="carousel-item-padding-40-px"
             >
