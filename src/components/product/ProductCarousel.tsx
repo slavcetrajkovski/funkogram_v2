@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import ProductCard from './ProductCard';
@@ -25,13 +25,20 @@ export default function ProductCarousel({ products, title }: ProductCarouselProp
         },
     };
 
-    const getDeviceType = (): string => {
-        if (typeof window !== 'undefined') {
-            if (window.innerWidth >= 1024) return 'desktop';
-            if (window.innerWidth >= 464) return 'tablet';
-        }
-        return 'mobile';
-    };
+    const [deviceType, setDeviceType] = useState<string>('mobile');
+
+    useEffect(() => {
+        const updateDeviceType = () => {
+            if (window.innerWidth >= 1024) setDeviceType('desktop');
+            else if (window.innerWidth >= 464) setDeviceType('tablet');
+            else setDeviceType('mobile');
+        };
+        updateDeviceType();
+
+        window.addEventListener('resize', updateDeviceType);
+
+        return () => window.removeEventListener('resize', updateDeviceType);
+    }, []);
 
     return (
         <div className="relative mt-12 mx-auto max-w-screen-2xl">
@@ -40,13 +47,14 @@ export default function ProductCarousel({ products, title }: ProductCarouselProp
                 swipeable
                 draggable
                 responsive={responsive}
-                ssr
+                ssr={false}
                 infinite
                 keyBoardControl
                 customTransition="transform 0.5s ease-in-out"
                 transitionDuration={500}
                 containerClass="carousel-container"
-                deviceType={getDeviceType()}
+                removeArrowOnDeviceType={["mobile"]}
+                deviceType={deviceType}
                 itemClass="carousel-item-padding-40-px"
             >
                 {products.map((product, index) => (
