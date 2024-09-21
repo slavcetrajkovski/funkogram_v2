@@ -1,11 +1,11 @@
-import type {Metadata} from "next";
-import {Roboto} from "next/font/google";
+import type { Metadata } from "next";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
 import TopBar from "@/components/shared/Topbar";
-import React, {Suspense} from "react";
+import React, { Suspense } from "react";
 
-const inter = Roboto({subsets: ["greek"], weight: "400"});
+const inter = Roboto({ subsets: ["greek"], weight: "400" });
 
 export const metadata: Metadata = {
     title: "Funkogram MK",
@@ -20,13 +20,19 @@ export default function RootLayout({
                                    }: Readonly<{
     children: React.ReactNode;
 }>) {
-    return (
 
+    const isMaintenancePage = true;
+
+    return (
         <html>
         <body className={`${inter.className} bg-yellow-700`}>
         <Suspense>
-            <TopBar/>
-            <Navbar/>
+            {!isMaintenancePage && (
+                <>
+                    <TopBar />
+                    <Navbar />
+                </>
+            )}
             {children}
         </Suspense>
         </body>
