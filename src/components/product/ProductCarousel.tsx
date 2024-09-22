@@ -20,8 +20,8 @@ export default function ProductCarousel({ products, title }: ProductCarouselProp
             items: 3,
         },
         mobile: {
-            breakpoint: { max: 800, min: 671 },
-            items: 2,
+            breakpoint: { max: 500, min: 320 },
+            items: 1,
         },
     };
 
@@ -47,11 +47,10 @@ export default function ProductCarousel({ products, title }: ProductCarouselProp
                 swipeable
                 draggable
                 responsive={responsive}
-                ssr={false}
+                ssr={true}
                 infinite
-                keyBoardControl
                 customTransition="transform 0.5s ease-in-out"
-                transitionDuration={500}
+                transitionDuration={400}
                 containerClass="carousel-container"
                 removeArrowOnDeviceType={["mobile"]}
                 deviceType={deviceType}
