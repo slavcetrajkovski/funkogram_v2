@@ -1,15 +1,17 @@
-import { ProductDto } from "@/model/product/ProductDto";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartPlus, faHeart } from "@fortawesome/free-solid-svg-icons";
-import { getStatusColor, getStatusText } from "@/data/Mapper";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { useState } from "react";
+import {ProductDto} from "@/model/product/ProductDto";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCartPlus, faHeart} from "@fortawesome/free-solid-svg-icons";
+import {getStatusColor, getStatusText} from "@/data/Mapper";
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
+import {useState} from "react";
 import {addProductToCart} from "@/service/CartService";
 import ToastMessage from "@/components/shared/ToastMessage";
+import {useRouter} from "next/navigation";
 
-export default function ProductCard({ product }: { product: ProductDto | undefined }) {
+export default function ProductCard({product}: { product: ProductDto }) {
     const [toastMessage, setToastMessage] = useState<string | null>(null);
-    const[error, setError] = useState(false);
+    const [error, setError] = useState(false);
+    const router = useRouter();
 
     const handleAddToCart = async () => {
         try {
@@ -25,11 +27,17 @@ export default function ProductCard({ product }: { product: ProductDto | undefin
         }
     };
 
+    const handleProductDetailsPageRedirect = () => {
+        if(product.id) {
+            router.push(`/product/${product.id}`);
+        }
+    }
+
     const statusToDisplay = product?.deleted ? "SOLD_OUT" : product?.productStatus;
 
     return (
         <div className="relative bg-white cursor-pointer hover:shadow-2xl rounded-lg p-6 mx-2 my-4 h-90 w-80">
-            <div className="flex justify-center items-center relative">
+            <div className="flex justify-center items-center relative" onClick={handleProductDetailsPageRedirect}>
                 <img
                     src={`data:image/jpeg;base64,${product?.imageUrl}`}
                     alt={product?.name}
@@ -40,8 +48,8 @@ export default function ProductCard({ product }: { product: ProductDto | undefin
                         statusToDisplay
                     )}`}
                 >
-          {getStatusText(statusToDisplay)}
-        </span>
+                {getStatusText(statusToDisplay)}
+                </span>
             </div>
             <h1 className="mt-4 text-xl font-bold text-gray-800">{product?.name}</h1>
             {statusToDisplay !== "PREORDER" && statusToDisplay !== "SOLD_OUT" && product?.productType !== "SHIRT" && (
@@ -52,7 +60,7 @@ export default function ProductCard({ product }: { product: ProductDto | undefin
                 {!product?.deleted && (
                     <div className="flex space-x-4">
                         <button onClick={handleAddToCart} className="text-blue-400 hover:text-blue-700 text-3xl">
-                            <FontAwesomeIcon icon={faCartPlus as IconProp} className="mr-2" />
+                            <FontAwesomeIcon icon={faCartPlus as IconProp} className="mr-2"/>
                         </button>
                         {/*<button className="text-red-500 hover:text-red-700 text-xl">*/}
                         {/*    <FontAwesomeIcon icon={faHeart as IconProp} className="mr-2" />*/}

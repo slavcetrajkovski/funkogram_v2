@@ -1,9 +1,10 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import { getProductDetails } from "@/service/ProductService";
-import ProductCard from "@/components/product/ProductCard";
 import { usePathname } from "next/navigation";
 import { ProductDto } from "@/model/product/ProductDto";
+import ProductDetails from "@/components/product/ProductDetails";
 
 export default function ProductPageComponent() {
   const pathname = usePathname();
@@ -25,5 +26,5 @@ export default function ProductPageComponent() {
     fetchProduct();
   }, [id]);
 
-  return <ProductCard product={product} />;
+  return <ProductDetails product={product} />;
 }
