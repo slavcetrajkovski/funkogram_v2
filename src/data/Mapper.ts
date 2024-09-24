@@ -85,3 +85,39 @@ export const getStatusIcon = (status: string) => {
             return null;
     }
 };
+
+export const getCategoryStyle = (category: string) => {
+    switch (category) {
+        case "Marvel":
+            return "bg-red-500";
+        case "Exclusives":
+            return "bg-yellow-500";
+        case "Other":
+            return "bg-gray-300";
+        case "Television":
+            return "bg-blue-500";
+        case "Animation":
+            return "bg-green-500";
+        case "Movies":
+            return "bg-purple-600";
+        case "Disney":
+            return "bg-pink-500";
+        default:
+            return "bg-gray-400";
+    }
+};
+
+export const getProductStatusDesc = (status: string, isDeleted: boolean) => {
+    switch(status) {
+        case "NEW_ARRIVAL":
+            return isDeleted ? "Фигурата е распродадена." : "Фигурата е нова и достапна за нарачка. Сите ново нарачани фигури ни пристигнуваат на почеток на секој следен месец.";
+        case "IN_STOCK":
+            return isDeleted ? "Фигурата е распродадена." : "Фигурата е достапна за нарачка. Сите ново нарачани фигури ни пристигнуваат на почеток на секој следен месец.";
+        case "PREORDER":
+            return isDeleted ? "Фигурата е распродадена." : "Фигурите со статус ПРЕДНАРАЧКА немаат точно определен датум на испорака, и датумот е подлежен на промени. За дополнителни информации, ве молиме контактирајте не на нашиот Инстаграм профил. Важно е да напоменеме дека овој тип на нарачка однапред се наплаќа.";
+        case "AVAILABLE_RIGHT_AWAY":
+            return isDeleted ? "Фигурата е распродадена." : "Фигурата е веднаш достапна.";
+        default:
+            return status;
+    }
+}
