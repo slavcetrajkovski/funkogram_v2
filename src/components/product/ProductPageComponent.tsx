@@ -5,11 +5,23 @@ import { getProductDetails } from "@/service/ProductService";
 import { usePathname } from "next/navigation";
 import { ProductDto } from "@/model/product/ProductDto";
 import ProductDetails from "@/components/product/ProductDetails";
+import { Category } from "@/model/category/Category";
 
 export default function ProductPageComponent() {
   const pathname = usePathname();
   const id = pathname.split("/").pop();
-  const [product, setProduct] = useState<ProductDto>();
+
+  const [product, setProduct] = useState<ProductDto>({
+    id: 0,
+    name: "",
+    imageUrl: new Blob(),
+    price: 0,
+    stock: 0,
+    productStatus: "",
+    productType: "",
+    deleted: false,
+    categories: [] as Category[],
+  });
 
   useEffect(() => {
     const fetchProduct = async () => {
