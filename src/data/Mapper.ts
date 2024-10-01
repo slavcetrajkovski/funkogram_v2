@@ -126,7 +126,7 @@ export const getCategoryStyle = (category: string) => {
     }
 };
 
-export const getProductStatusDesc = (status: string, isDeleted: boolean) => {
+export const getProductStatusFunkoDesc = (status: string, isDeleted: boolean) => {
     switch(status) {
         case "NEW_ARRIVAL":
             return isDeleted ? "Фигурата е распродадена." : "Фигурата е нова и достапна за нарачка. Сите ново нарачани фигури ни пристигнуваат на почеток на секој следен месец.";
@@ -140,3 +140,24 @@ export const getProductStatusDesc = (status: string, isDeleted: boolean) => {
             return status;
     }
 }
+
+export const getProductStatusShirtDesc = (status: string, isDeleted: boolean) => {
+    return isDeleted ? "Маицата е распродадена." : "Маицата е веднаш достапна за нарачка."
+}
+
+export const getProductDescription = (productType: string): string[] => {
+    if (productType === "FUNKO_POP") {
+        return [
+            "Funko POP! колекционерска фигура спакувана во илустрирана кутија.",
+            "Доаѓаат во различни големини, кои што може да варираат од 10cm до 45cm во висина.",
+            "Секоја фигура ги претставува вашите омилени ликови од поп-културата.",
+        ];
+    } else if (productType === "SHIRT") {
+        return [
+            "Квалитетна маица изработена од 100% памук.",
+            "Достапна величини: XS, S, M, L, XL, XXL",
+        ];
+    } else {
+        return ["Нема достапни описни информации за овој производ."];
+    }
+};

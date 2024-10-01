@@ -1,20 +1,21 @@
 "use client";
 
-import { ProductDto } from "@/model/product/ProductDto";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartPlus, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import {ProductDto} from "@/model/product/ProductDto";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCartPlus, faCheckCircle} from "@fortawesome/free-solid-svg-icons";
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
 import {
-    getCategoryStyle,
-    getProductStatusDesc,
+    getCategoryStyle, getProductDescription,
+    getProductStatusFunkoDesc,
+    getProductStatusShirtDesc,
     getStatusColor,
     getStatusText,
 } from "@/data/Mapper";
-import { addProductToCart } from "@/service/CartService";
-import { useState } from "react";
+import {addProductToCart} from "@/service/CartService";
+import {useState} from "react";
 import ToastMessage from "@/components/shared/ToastMessage";
 
-export default function ProductDetails({ product }: { product: ProductDto }) {
+export default function ProductDetails({product}: { product: ProductDto }) {
     const [toastMessage, setToastMessage] = useState<string | null>(null);
     const [error, setError] = useState(false);
     const [isAddedToCart, setIsAddedToCart] = useState(false);
@@ -36,6 +37,13 @@ export default function ProductDetails({ product }: { product: ProductDto }) {
         }
     };
 
+    const productStatusDescription =
+        product.productType === "SHIRT"
+            ? getProductStatusShirtDesc(product?.productStatus, product?.deleted)
+            : getProductStatusFunkoDesc(product?.productStatus, product?.deleted);
+
+    const productDescription = getProductDescription(product?.productType);
+
     return (
         <div className="bg-gray-100 text-black">
             <div className="container mx-auto px-4 py-8">
@@ -53,8 +61,8 @@ export default function ProductDetails({ product }: { product: ProductDto }) {
                                     statusToDisplay
                                 )}`}
                             >
-                {getStatusText(statusToDisplay)}
-              </span>
+                                {getStatusText(statusToDisplay)}
+                            </span>
                         </div>
                     </div>
 
@@ -64,7 +72,8 @@ export default function ProductDetails({ product }: { product: ProductDto }) {
                                 statusToDisplay
                             )}`}
                         >
-                            {getProductStatusDesc(product?.productStatus, product?.deleted)}
+                            {/* Use the selected description based on the product type */}
+                            {productStatusDescription}
                         </div>
 
                         <div className="bg-white w-full px-4 py-8 rounded-lg shadow-md">
@@ -75,18 +84,12 @@ export default function ProductDetails({ product }: { product: ProductDto }) {
 
                             <span className="text-2xl font-bold">Опис</span>
                             <ul className="bg-gray-100 p-4 rounded-lg shadow-md mb-6 mt-2">
-                                <li className="mb-2 flex items-start">
-                                    <span className="mr-2 text-funkogram_red">•</span>
-                                    Funko POP! колекционерска фигура спакувана во илустрирана кутија.
-                                </li>
-                                <li className="mb-2 flex items-start">
-                                    <span className="mr-2 text-funkogram_red">•</span>
-                                    Доаѓаат во различни големини, кои што може да варираат од 10cm до 45cm во висина.
-                                </li>
-                                <li className="flex items-start">
-                                    <span className="mr-2 text-funkogram_red">•</span>
-                                    Секоја фигура ги претставува вашите омилени ликови од поп-културата.
-                                </li>
+                                {productDescription.map((desc, index) => (
+                                    <li key={index} className="mb-2 flex items-start">
+                                        <span className="mr-2 text-funkogram_red">•</span>
+                                        {desc}
+                                    </li>
+                                ))}
                             </ul>
 
                             <div className="mb-6">
@@ -99,8 +102,8 @@ export default function ProductDetails({ product }: { product: ProductDto }) {
                                                 category.name
                                             )} text-black rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2`}
                                         >
-                      {category.name}
-                    </span>
+                                            {category.name}
+                                        </span>
                                     ))}
                                 </div>
                             </div>
