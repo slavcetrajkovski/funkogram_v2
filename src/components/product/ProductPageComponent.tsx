@@ -7,9 +7,8 @@ import { ProductDto } from "@/model/product/ProductDto";
 import ProductDetails from "@/components/product/ProductDetails";
 import { Category } from "@/model/category/Category";
 
-export default function ProductPageComponent() {
-  const pathname = usePathname();
-  const id = pathname.split("/").pop();
+export default function ProductPageComponent({ productId }: { productId: string }) {
+  const id = productId;
 
   const [product, setProduct] = useState<ProductDto>({
     id: 0,

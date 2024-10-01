@@ -72,7 +72,6 @@ export default function ProductDetails({product}: { product: ProductDto }) {
                                 statusToDisplay
                             )}`}
                         >
-                            {/* Use the selected description based on the product type */}
                             {productStatusDescription}
                         </div>
 
