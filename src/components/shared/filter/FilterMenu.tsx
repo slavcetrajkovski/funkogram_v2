@@ -7,6 +7,7 @@ import ClearFilter from "@/components/shared/filter/ClearFilter";
 import SortFilter from "@/components/shared/filter/SortFilter";
 import ProductStatusFilter from "@/components/shared/filter/ProductStatusFilter";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import ProductTypeFilter from "@/components/shared/filter/ProductTypeFilter";
 
 interface ResponsiveFilterMenuProps {
     productsPerPage: number;
@@ -14,11 +15,14 @@ interface ResponsiveFilterMenuProps {
     sortFilter: string;
     categories: string[];
     productStatusFilter: string;
+    productTypeFilter: string;
     productStatus: string[];
+    productType: string[];
     handleProductsPerPageChange: (value: number) => void;
     handleCategoryChange: (value: string) => void;
     handleSortChange: (value: string) => void;
     handleProductStatusChange: (value: string) => void;
+    handleProductTypeChange: (value: string) => void;
     clearFilters: () => void;
 }
 
@@ -28,11 +32,14 @@ export default function FilterMenu({
                                        sortFilter,
                                        categories,
                                        productStatusFilter,
+                                       productTypeFilter,
                                        productStatus,
+                                       productType,
                                        handleProductsPerPageChange,
                                        handleCategoryChange,
                                        handleSortChange,
                                        handleProductStatusChange,
+                                       handleProductTypeChange,
                                        clearFilters,
                                    }: ResponsiveFilterMenuProps) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -64,7 +71,7 @@ export default function FilterMenu({
                     onClick={toggleMenu}
                     className="flex items-center justify-center px-4 py-2 bg-funkogram_red font-bold text-lg text-white rounded"
                 >
-                    <FontAwesomeIcon icon={faBars as IconProp} className="mr-2" />
+                    <FontAwesomeIcon icon={faBars as IconProp} className="mr-2"/>
                     {isMenuOpen ? "Затвори Филтри" : "Филтрирај"}
                 </button>
                 {isMenuOpen && (
@@ -75,7 +82,8 @@ export default function FilterMenu({
                 )}
             </div>
             {isMenuOpen && (
-                <div className="flex flex-col items-center justify-center p-4 mt-2 text-black bg-funkogram_red shadow-lg rounded-md w-full max-w-xl space-y-4 mx-auto">
+                <div
+                    className="flex flex-col items-center justify-center p-4 mt-2 text-black bg-funkogram_red shadow-lg rounded-md w-full max-w-xl space-y-4 mx-auto">
                     <DropdownPageSize
                         options={[40, 52, 64]}
                         value={productsPerPage}
@@ -95,6 +103,11 @@ export default function FilterMenu({
                         options={["Најниска цена", "Највисока цена"]}
                         value={sortFilter}
                         onChange={handleSortChange}
+                    />
+                    <ProductTypeFilter
+                        options={["Сите", ...productType]}
+                        value={productTypeFilter}
+                        onChange={handleProductTypeChange}
                     />
                 </div>
             )}
