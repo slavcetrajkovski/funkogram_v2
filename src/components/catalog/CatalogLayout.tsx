@@ -30,6 +30,7 @@ export default function CatalogLayout() {
     const [productStatusFilter, setProductStatusFilter] = useState(searchParams.get('productStatusFilter') || "");
     const [productStatus, setProductStatus] = useState<string[]>([]);
     const [productTypeFilter, setProductTypeFilter] = useState(searchParams.get('productTypeFilter') || "");
+    const [productType, setProductType] = useState<string[]>([]);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -57,6 +58,7 @@ export default function CatalogLayout() {
                 const response = await getAllCategories();
                 setCategories(response);
                 setProductStatus(  ["NEW_ARRIVAL", "PREORDER", "IN_STOCK"])
+                setProductType(["SHIRT"])
             } catch (error) {
                 setError("Failed to fetch categories");
             }
@@ -110,6 +112,14 @@ export default function CatalogLayout() {
         router.push(`${pathname}?${newParams.toString()}`);
     }
 
+    const handleProductTypeChange = (value: string) => {
+        setProductTypeFilter(value);
+        console.log(productTypeFilter)
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set('productTypeFilter', value.toString());
+        router.push(`${pathname}?${newParams.toString()}`);
+    }
+
     const clearFilters = () => {
         setCategoryFilter("");
         setSearchFilter("");
@@ -137,13 +147,16 @@ export default function CatalogLayout() {
                 categoryFilter={categoryFilter}
                 sortFilter={sortFilter}
                 productStatusFilter={productStatusFilter}
+                productTypeFilter={productTypeFilter}
                 categories={categories}
                 productStatus={productStatus}
+                productType={productType}
                 clearFilters={clearFilters}
                 handleProductsPerPageChange={handleProductsPerPageChange}
                 handleCategoryChange={handleCategoryChange}
                 handleSortChange={handleSortChange}
                 handleProductStatusChange={handleProductStatusChange}
+                handleProductTypeChange={handleProductTypeChange}
             />
             <div className="flex justify-center mt-6">
                 {loading ? (

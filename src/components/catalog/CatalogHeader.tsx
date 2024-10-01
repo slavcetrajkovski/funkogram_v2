@@ -4,6 +4,7 @@ import ClearFilter from "@/components/shared/filter/ClearFilter";
 import SortFilter from "@/components/shared/filter/SortFilter";
 import ProductStatusFilter from "@/components/shared/filter/ProductStatusFilter";
 import FilterMenu from "@/components/shared/filter/FilterMenu";
+import ProductTypeFilter from "@/components/shared/filter/ProductTypeFilter";
 
 interface CatalogHeaderProps {
     totalProducts: number;
@@ -12,11 +13,14 @@ interface CatalogHeaderProps {
     sortFilter: string;
     categories: string[];
     productStatusFilter: string;
+    productTypeFilter: string;
     productStatus: string[];
+    productType: string[];
     handleProductsPerPageChange: (value: number) => void;
     handleCategoryChange: (value: string) => void;
     handleSortChange: (value: string) => void;
     handleProductStatusChange: (value: string) => void;
+    handleProductTypeChange: (value: string) => void;
     clearFilters: () => void;
 }
 
@@ -27,10 +31,13 @@ export default function CatalogHeader({
                                           handleCategoryChange,
                                           handleSortChange,
                                           handleProductStatusChange,
+                                          handleProductTypeChange,
                                           categoryFilter,
                                           sortFilter,
+                                          productTypeFilter,
                                           productStatusFilter,
                                           productStatus,
+                                          productType,
                                           categories,
                                           clearFilters,
                                       }: CatalogHeaderProps) {
@@ -40,6 +47,7 @@ export default function CatalogHeader({
                 productsPerPage={productsPerPage}
                 categoryFilter={categoryFilter}
                 sortFilter={sortFilter}
+                productTypeFilter={productTypeFilter}
                 categories={categories}
                 productStatusFilter={productStatusFilter}
                 productStatus={productStatus}
@@ -47,6 +55,8 @@ export default function CatalogHeader({
                 handleCategoryChange={handleCategoryChange}
                 handleSortChange={handleSortChange}
                 handleProductStatusChange={handleProductStatusChange}
+                handleProductTypeChange={handleProductTypeChange}
+                productType={productType}
                 clearFilters={clearFilters}
             />
             <h1 className="text-xl xl:text-2xl text-black font-bold mt-4 xl:mt-0">
@@ -73,6 +83,11 @@ export default function CatalogHeader({
                     options={["Најниска цена", "Највисока цена"]}
                     value={sortFilter}
                     onChange={handleSortChange}
+                />
+                <ProductTypeFilter
+                    options={["Сите", ...productType]}
+                    value={productTypeFilter}
+                    onChange={handleProductTypeChange}
                 />
             </div>
         </div>

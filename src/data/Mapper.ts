@@ -17,6 +17,25 @@ export const getStatusText = (status: string | undefined) => {
     }
 };
 
+export const getProductTypeText = (status: string | undefined) => {
+    switch (status) {
+        case "FUNKO_POP":
+            return "Funko Pop";
+        case "FUNKO_KEYCHAIN":
+            return "Привезоци";
+        case "BITTY_POP":
+            return "Bitty Pop";
+        case "COMIC":
+            return "Стрипови"
+        case "MANGA":
+            return "Манга";
+        case "SHIRT":
+            return "Маици"
+        default:
+            return status;
+    }
+};
+
 export const getStatusColor = (status: string | undefined) => {
     switch (status) {
         case "NEW_ARRIVAL":

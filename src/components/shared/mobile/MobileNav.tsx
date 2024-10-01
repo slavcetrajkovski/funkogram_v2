@@ -18,6 +18,12 @@ export default function MobileNav() {
         router.push(`/catalog?${newParams.toString()}`);
     }
 
+    const handleNavigationProductType = (type: string) => {
+        const newParams = new URLSearchParams();
+        newParams.set('productTypeFilter', type);
+        router.push(`/catalog?${newParams.toString()}`);
+    }
+
     return (
         <nav className="bg-funkogram_red lg:hidden">
             <div className="mx-auto px-4">
@@ -38,10 +44,12 @@ export default function MobileNav() {
                        className="hover:text-yellow-700 px-3 py-4 rounded-md font-bold">
                         Преднарачка
                     </a>
-                    {/*<a className="hover:text-yellow-700 px-3 py-2 rounded-md font-bold cursor-pointer">*/}
-                    {/*    Маици*/}
-                    {/*</a>*/}
-                    <a onClick={() => handleSearch("bitty pop")} className="hover:text-yellow-700 px-3 py-2 rounded-md font-bold cursor-pointer">
+                    <a onClick={() => handleNavigationProductType("SHIRT")}
+                       className="hover:text-yellow-700 px-3 py-2 rounded-md font-bold cursor-pointer">
+                        Маици
+                    </a>
+                    <a onClick={() => handleSearch("bitty pop")}
+                       className="hover:text-yellow-700 px-3 py-2 rounded-md font-bold cursor-pointer">
                         Bitty POP!
                     </a>
                 </div>
