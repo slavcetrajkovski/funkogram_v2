@@ -1,12 +1,16 @@
 import {Order} from "@/model/order/Order";
 import axiosInstance from "@/config/axiosInstance";
 
-export const createOrder = async (deliveryAddress: string, city: string,
-                                    phoneNumber: string, instagramUsername: string, description: string): Promise<Order> => {
+export const createOrder = async (deliveryAddress: string,
+                                  city: string,
+                                  phoneNumber: string,
+                                  instagramUsername: string,
+                                  description: string,
+                                  discountCode: string): Promise<Order> => {
     try {
         const token = localStorage.getItem("token");
         const response = await axiosInstance.post('/order/create', null, {
-            params: { deliveryAddress, city, phoneNumber, instagramUsername, description},
+            params: { deliveryAddress, city, phoneNumber, instagramUsername, description, discountCode },
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json',
