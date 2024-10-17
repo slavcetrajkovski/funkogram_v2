@@ -108,6 +108,9 @@ export default function ProductDetails({product}: { product: ProductDto }) {
                             </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ffee8f9750577db35837116f2ae763b0bb5e35d7
                             {isAddedToCart ? (
                                 <button
                                     disabled
@@ -131,6 +134,7 @@ export default function ProductDetails({product}: { product: ProductDto }) {
                                     Додај во кошничка
                                 </button>
                             )}
+<<<<<<< HEAD
 =======
                                 isAddedToCart ? (
                                     <button
@@ -156,6 +160,8 @@ export default function ProductDetails({product}: { product: ProductDto }) {
                                     </button>
                                 )
 >>>>>>> 8bb1f9fa627e178475acfd6a0beda9f41f3dde9e
+=======
+>>>>>>> ffee8f9750577db35837116f2ae763b0bb5e35d7
                         </div>
                     </div>
                 </div>
