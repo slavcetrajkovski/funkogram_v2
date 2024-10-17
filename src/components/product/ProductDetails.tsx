@@ -107,7 +107,6 @@ export default function ProductDetails({product}: { product: ProductDto }) {
                                 </div>
                             </div>
 
-                            {statusToDisplay !== 'SOLD_OUT' && (
                                 isAddedToCart ? (
                                     <button
                                         disabled
@@ -131,7 +130,6 @@ export default function ProductDetails({product}: { product: ProductDto }) {
                                         Додај во кошничка
                                     </button>
                                 )
-                            )}
                         </div>
                     </div>
                 </div>
