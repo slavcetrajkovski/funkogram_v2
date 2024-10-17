@@ -135,15 +135,16 @@ export default function ProductDetails({product}: { product: ProductDto }) {
                         </div>
                     </div>
                 </div>
-
-                {toastMessage && (
-                    <ToastMessage
-                        message={toastMessage}
-                        error={error}
-                        duration={2001}
-                        onClose={() => setToastMessage(null)}
-                    />
-                )}
             </div>
-            );
-            }
+
+            {toastMessage && (
+                <ToastMessage
+                    message={toastMessage}
+                    error={error}
+                    duration={2001}
+                    onClose={() => setToastMessage(null)}
+                />
+            )}
+        </div>
+    );
+}
