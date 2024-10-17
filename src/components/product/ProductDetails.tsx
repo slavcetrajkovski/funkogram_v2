@@ -139,7 +139,7 @@ export default function ProductDetails({product}: { product: ProductDto }) {
                 <ToastMessage
                     message={toastMessage}
                     error={error}
-                    duration={2000}
+                    duration={2001}
                     onClose={() => setToastMessage(null)}
                 />
             )}
