@@ -107,35 +107,7 @@ export default function ProductDetails({product}: { product: ProductDto }) {
                                 </div>
                             </div>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> ffee8f9750577db35837116f2ae763b0bb5e35d7
-                            {isAddedToCart ? (
-                                <button
-                                    disabled
-                                    className="bg-green-600 flex gap-2 items-center text-white px-6 py-2 rounded-md cursor-not-allowed"
-                                >
-                                    <FontAwesomeIcon
-                                        icon={faCheckCircle as IconProp}
-                                        className="mr-2"
-                                    />
-                                    Додадено
-                                </button>
-                            ) : (
-                                <button
-                                    onClick={handleAddToCart}
-                                    className="bg-funkogram_red flex gap-2 items-center text-white px-6 py-2 rounded-md hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 mb-6"
-                                >
-                                    <FontAwesomeIcon
-                                        icon={faCartPlus as IconProp}
-                                        className="mr-2"
-                                    />
-                                    Додај во кошничка
-                                </button>
-                            )}
-<<<<<<< HEAD
-=======
+                            {statusToDisplay !== 'SOLD_OUT' && (
                                 isAddedToCart ? (
                                     <button
                                         disabled
@@ -159,22 +131,19 @@ export default function ProductDetails({product}: { product: ProductDto }) {
                                         Додај во кошничка
                                     </button>
                                 )
->>>>>>> 8bb1f9fa627e178475acfd6a0beda9f41f3dde9e
-=======
->>>>>>> ffee8f9750577db35837116f2ae763b0bb5e35d7
+                            )}
                         </div>
                     </div>
                 </div>
-            </div>
 
-            {toastMessage && (
-                <ToastMessage
-                    message={toastMessage}
-                    error={error}
-                    duration={2001}
-                    onClose={() => setToastMessage(null)}
-                />
-            )}
-        </div>
-    );
-}
+                {toastMessage && (
+                    <ToastMessage
+                        message={toastMessage}
+                        error={error}
+                        duration={2001}
+                        onClose={() => setToastMessage(null)}
+                    />
+                )}
+            </div>
+            );
+            }
