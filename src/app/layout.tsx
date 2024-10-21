@@ -27,6 +27,22 @@ export const metadata: Metadata = {
         "pop-culture",
         "колекционерски фигури",
     ],
+    openGraph: {
+        title: "Funkogram MK",
+        description: "Влези во светот на Funko Pop! фигурите и пронајди го твојот омилен лик од поп-културата. ",
+        url: "https://www.funkogram.mk",
+        siteName: "Funkogram MK",
+        images: [
+            {
+                url: "/funkogram-cover.png",
+                width: 1200,
+                height: 630,
+                alt: "Funkogram MK Каталог",
+            },
+        ],
+        locale: "mk_MK",
+        type: "website",
+    },
 };
 
 export default function RootLayout({
@@ -39,15 +55,6 @@ export default function RootLayout({
 
     return (
         <html lang="mk">
-        <Head>
-            <meta charSet="UTF-8" />
-            <link rel="icon" href="/favicon.ico" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <meta property="og:title" content="Funkogram MK" />
-            <meta property="og:description" content="Најголемата продавница за Funko POP! фигури во Македонија" />
-            <meta property="og:image" content="/funkogram-cover.png" />
-            <meta property="og:url" content="https://funkogram.mk/" />
-        </Head>
         <body className={`${inter.className} bg-yellow-700`}>
         <Suspense>
             {!isMaintenancePage && (
